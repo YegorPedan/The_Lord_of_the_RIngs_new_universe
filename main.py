@@ -1,6 +1,7 @@
 from units import Elf, Orc, Men, SuperMen, Dragon
 from weapons import Bow, Sword, Knife, Baton
 from teams import UnitsTeam
+from help_functions import is_team_alive
 
 if __name__ == "__main__":
     robin = Elf(1, 1, 1, Sword(1, 1, 1), 1)
@@ -29,3 +30,31 @@ if __name__ == "__main__":
     team4 = UnitsTeam()
     team4.add_unit(smaug)
     print("create a third team,", team4)
+
+
+    team1.attack(team2)
+    print("Team1 attack team2", f"now team2 health is {team2}")
+
+    team2.attack(team3)
+    print("Team2 attack team3", f"now team3 health is {team3}")
+
+    team3.attack(team4)
+    print("Team3 attack team4", f"now team3 health is {team4}")
+
+    team4.attack(team1)
+    print("Team4 attack team1", f"now team1 health is {team1}")
+
+    team2.attack(team3)
+    print("Team2 attack team3", f"now team3 health is {team3}")
+
+
+    print()
+    if is_team_alive(team1.get_team_health()):
+        print("team 1 is alive")
+    if is_team_alive(team2.get_team_health()):
+        print("team 2 is alive")
+    if is_team_alive(team3.get_team_health()):
+        print("team 3 is alive")
+    if is_team_alive(team4.get_team_health()):
+        print("team 4 is alive")
+    print("team2 has won")

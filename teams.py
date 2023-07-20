@@ -19,7 +19,7 @@ class UnitsTeam:
         else:
             raise TypeError("")
 
-    def team_attack(self, attacked_team: "UnitsTeam") -> bool:
+    def attack(self, attacked_team: "UnitsTeam") -> bool:
         can_be_attacked = True
         if attacked_team.__team_health <= 0:
             print("That team already destroyed")
@@ -27,9 +27,12 @@ class UnitsTeam:
         else:
             common_power = 0
             for unit in self.units:
-                common_power += unit.get_power()
+                common_power += unit.get_total_force()
             attacked_team.__reduce_common_health(common_power)
         return can_be_attacked
+
+    def get_team_health(self) -> float:
+        return self.__team_health
 
     def __str__(self) -> str:
         return f"current team health is {self.__team_health}"

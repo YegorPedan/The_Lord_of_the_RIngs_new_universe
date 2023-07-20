@@ -1,133 +1,31 @@
+from units import Elf, Orc, Men, SuperMen, Dragon
+from weapons import Bow, Sword, Knife, Baton
+from teams import UnitsTeam
 
-class Weapon:
-    def __init__(self, impact_force: int, breaking_capacity: int):
-        self._impact_force = impact_force
-        self._breaking_capacity = breaking_capacity
+if __name__ == "__main__":
+    robin = Elf(1, 1, 1, Sword(1, 1, 1), 1)
+    john = Men(5, 12, 44, Knife(5, 8, 7), 1, 2)
+    team1 = UnitsTeam()
+    team1.add_unit(robin)
+    team1.add_unit(john)
+    print("create a first team,", team1)
+   
+    #second team
+    matrin = Elf(7, 4, 1, Bow(3, 1, 9), 2)
+    jame = Orc(1, 5, 7, 2)
+    team2 = UnitsTeam()
+    team2.add_unit(matrin)
+    team2.add_unit(jame)
+    print("create a second team,", team2)
 
-    def __str__(self) -> str:
-        return self.__class__.__name__
+    #third team
+    clark = SuperMen(1, 5, 7, Sword(1, 5, 7), 17, 1, 5)
+    team3 = UnitsTeam()
+    team3.add_unit(clark)
+    print("create a third team,", team3)
 
-
-class Bow(Weapon):
-    def __init__(self, impact_force: int, breaking_capacity: int, range: int):
-        super().__init__(impact_force, breaking_capacity)
-        self.__range = range
-
-    def get_total_force(self) -> int:
-        return self._impact_force * self._breaking_capacity + self.__range
-
-
-class Sword(Weapon):
-    def __init__(self, impact_force: int, breaking_capacity: int, endurance: int):
-        super().__init__(impact_force, breaking_capacity)
-        self.__endurance = endurance
-
-    def get_total_force(self) -> int:
-        return self._impact_force * self._breaking_capacity + self.__endurance
-
-
-class Knife(Weapon):
-    def __init__(self, impact_force: int, breaking_capacity: int, endurance: int):
-        super().__init__(impact_force, breaking_capacity)
-        self.__endurance = endurance
-
-    def get_total_force(self) -> int:
-        return self._impact_force * self._breaking_capacity + self.__endurance
-
-
-class Baton(Weapon):
-    def __init__(self, impact_force: int, breaking_capacity: int, endurance: int):
-        super().__init__(impact_force, breaking_capacity)
-        self.__endurance = endurance
-
-    def get_total_force(self) -> int:
-        return self._impact_force * self._breaking_capacity + self.__endurance
-
-
-class Unit:
-    def __init__(self, initial_health: int, speed: int, power: int):
-        self._initial_health = initial_health
-        self._speed = speed
-        self._power = power
-
-    def is_weapon_possible(self, weapon, available_weapons: tuple) -> bool:
-        can_use = True 
-        if not isinstance(weapon, available_weapons):
-            can_use = False 
-            print(f"Tha race {self.__class__.__name__} can not use a {weapon}")
-        return can_use
-
-    def __str__(self) -> str:
-        return f"This unit is a {self.__class__.__name__} class"
-
-class Elf(Unit):
-    def __init__(self, initial_health: int, speed: int, power: int, weapon, possession_of_weapon: int):
-        super().__init__(initial_health, speed, power)
-        if self.is_weapon_possible(weapon, (Sword, Bow)):
-            self.__weapon = weapon
-            self.__possesion_of_weapon = possession_of_weapon
-        else:
-            self.__possesion_of_weapon = 0
-            self.__weapon = None
-
-    def get_total_force(self) -> float:
-        power = 0
-        if self.__weapon:
-            power = (self._initial_health + self._speed * self._power + self.__possesion_of_weapon * self.__weapon.get_total_force()) / 100
-        else:
-            power = (self._initial_health + self._speed * self._power) / 100
-        return power
-
-
-class Orc(Unit):
-    def __init__(self, initial_health: int, speed: int, power: int, number_of_rebirths: int):
-        super().__init__(initial_health, speed, power)
-        self.__number_of_rebirths = number_of_rebirths
-
-    def get_total_force(self) -> float:
-        return (self._initial_health + self._speed * self._power * self.__number_of_rebirths) / 100
-
-class Men(Unit):
-    def __init__(self, initial_health: int, speed: int, power: int, weapon, possession_of_weapon: int, intelligance: int):
-        super().__init__(initial_health, speed, power)
-        self._intelligance = intelligance
-        if self.is_weapon_possible(weapon, (Sword, Bow, Knife)):
-            self._weapon = weapon
-            self._possesion_of_weapon = possession_of_weapon
-        else:
-            self._possesion_of_weapon = 0
-            self._weapon = None
-
-    def get_total_force(self) -> float:
-        power = 0
-        if self._weapon:
-            power = (self._initial_health + self._speed * self._power + self._possesion_of_weapon * self._weapon.get_total_force()) / 100
-        else:
-            power = (self._initial_health + self._speed * self._power) / 100
-        return power
-            
-
-
-class SuperMen(Men):
-    def __init__(self, initial_health: int, speed: int, power: int, weapon, possession_of_weapon: int, intelligance: int, superpower: int):
-        super().__init__(initial_health, speed, power, weapon, possession_of_weapon, intelligance)
-        self.__superpower = superpower
-
-    def get_total_force(self) -> float:
-        power = 0
-        if self._weapon:
-            power = (self._initial_health + self._speed * self._power + self._possesion_of_weapon * self._weapon.get_total_force() ** self.__superpower) / 100
-        else:
-            power = (self._initial_health + self._speed * self._power ** self.__superpower) / 100
-        return power
-
-class Dragon(Unit):
-    __instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls.__instance:
-            cls.__instance = super().__new__(cls)
-        return cls.__instance
-
-    def get_total_force(self):
-        return self._initial_health * self._speed * self._power ** 5
+    #fourth team
+    smaug = Dragon(1, 17, 8)
+    team4 = UnitsTeam()
+    team4.add_unit(smaug)
+    print("create a third team,", team4)

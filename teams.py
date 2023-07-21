@@ -1,24 +1,33 @@
 from units import Unit
 from help_functions import is_number
 
+from user_exceptions import AttackTypeError, TeamTypeError
+
 
 class UnitsTeam:
     def __init__(self) -> None:
         self.units = []
         self.__team_health = 0
 
-    def add_unit(self, unit) -> None:
+    def __add_unit(self, unit) -> None:
         if (isinstance(unit, Unit)):
             self.units.append(unit)
             self.__team_health += unit._initial_health
         else:
-            raise ValueError("Only units can be added to team")
+            raise TeamTypeError("Only units can be added to a team")
+
+    def add_unit(self, unit) -> None:
+        try:
+            self.__add_unit(unit)
+        except TeamTypeError:
+            print("Please choose another character!")
 
     def __reduce_common_health(self, number: float) -> None:
         if is_number(number):
             self.__team_health -= number
+            self.__team_health = 0 if self.__team_health < 0 else self.__team_health
         else:
-            raise TypeError("")
+            raise AttackTypeError("Attack can be only a float number")
 
     def attack(self, attacked_team: "UnitsTeam") -> bool:
         can_be_attacked = True
@@ -29,7 +38,10 @@ class UnitsTeam:
             common_power = 0
             for unit in self.units:
                 common_power += unit.get_total_force()
-            attacked_team.__reduce_common_health(common_power)
+            try:
+                attacked_team.__reduce_common_health(common_power)
+            except AttackTypeError:
+                print("Please pass a float number to attack method")
         return can_be_attacked
 
     def get_team_health(self) -> float:

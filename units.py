@@ -8,9 +8,9 @@ class Unit:
         self._power = power
 
     def is_weapon_possible(self, weapon, available_weapons: tuple) -> bool:
-        can_use = True 
+        can_use = True
         if not isinstance(weapon, available_weapons):
-            can_use = False 
+            can_use = False
             print(f"Tha race {self.__class__.__name__} can not use a {weapon}")
         return can_use
 
@@ -19,6 +19,7 @@ class Unit:
 
     def __str__(self) -> str:
         return f"This unit is a {self.__class__.__name__} class"
+
 
 class Elf(Unit):
     def __init__(self, initial_health: int, speed: int, power: int, weapon, possession_of_weapon: int):
@@ -33,7 +34,8 @@ class Elf(Unit):
     def get_total_force(self) -> float:
         power = 0
         if self.__weapon:
-            power = (self._initial_health + self._speed * self._power + self.__possesion_of_weapon * self.__weapon.get_total_force()) / 100
+            power = (self._initial_health + self._speed * self._power +
+                     self.__possesion_of_weapon * self.__weapon.get_total_force()) / 100
         else:
             power = (self._initial_health + self._speed * self._power) / 100
         return power
@@ -46,6 +48,7 @@ class Orc(Unit):
 
     def get_total_force(self) -> float:
         return (self._initial_health + self._speed * self._power * self.__number_of_rebirths) / 100
+
 
 class Men(Unit):
     def __init__(self, initial_health: int, speed: int, power: int, weapon, possession_of_weapon: int, intelligance: int):
@@ -61,25 +64,29 @@ class Men(Unit):
     def get_total_force(self) -> float:
         power = 0
         if self._weapon:
-            power = (self._initial_health + self._speed * self._power + self._possesion_of_weapon * self._weapon.get_total_force()) / 100
+            power = (self._initial_health + self._speed * self._power +
+                     self._possesion_of_weapon * self._weapon.get_total_force()) / 100
         else:
             power = (self._initial_health + self._speed * self._power) / 100
         return power
-            
 
 
 class SuperMen(Men):
     def __init__(self, initial_health: int, speed: int, power: int, weapon, possession_of_weapon: int, intelligance: int, superpower: int):
-        super().__init__(initial_health, speed, power, weapon, possession_of_weapon, intelligance)
+        super().__init__(initial_health, speed, power,
+                         weapon, possession_of_weapon, intelligance)
         self.__superpower = superpower
 
     def get_total_force(self) -> float:
         power = 0
         if self._weapon:
-            power = (self._initial_health + self._speed * self._power + self._possesion_of_weapon * self._weapon.get_total_force() ** self.__superpower) / 100
+            power = (self._initial_health + self._speed * self._power +
+                     self._possesion_of_weapon * self._weapon.get_total_force() ** self.__superpower) / 100
         else:
-            power = (self._initial_health + self._speed * self._power ** self.__superpower) / 100
+            power = (self._initial_health + self._speed *
+                     self._power ** self.__superpower) / 100
         return power
+
 
 class Dragon(Unit):
     __instance = None

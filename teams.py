@@ -1,5 +1,6 @@
 from units import Unit
-from help_functions import is_number 
+from help_functions import is_number
+
 
 class UnitsTeam:
     def __init__(self) -> None:

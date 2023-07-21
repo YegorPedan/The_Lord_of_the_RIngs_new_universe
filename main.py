@@ -10,8 +10,8 @@ if __name__ == "__main__":
     team1.add_unit(robin)
     team1.add_unit(john)
     print("create a first team,", team1)
-   
-    #second team
+
+    # second team
     matrin = Elf(7, 4, 1, Bow(3, 1, 9), 2)
     jame = Orc(1, 5, 7, 2)
     team2 = UnitsTeam()
@@ -19,18 +19,17 @@ if __name__ == "__main__":
     team2.add_unit(jame)
     print("create a second team,", team2)
 
-    #third team
+    # third team
     clark = SuperMen(1, 5, 7, Sword(1, 5, 7), 17, 1, 5)
     team3 = UnitsTeam()
     team3.add_unit(clark)
     print("create a third team,", team3)
 
-    #fourth team
+    # fourth team
     smaug = Dragon(1, 17, 8)
     team4 = UnitsTeam()
     team4.add_unit(smaug)
     print("create a third team,", team4)
-
 
     team1.attack(team2)
     print("Team1 attack team2", f"now team2 health is {team2}")
@@ -46,7 +45,6 @@ if __name__ == "__main__":
 
     team2.attack(team3)
     print("Team2 attack team3", f"now team3 health is {team3}")
-
 
     print()
     if is_team_alive(team1.get_team_health()):

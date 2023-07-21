@@ -41,4 +41,3 @@ class Baton(Weapon):
 
     def get_total_force(self) -> int:
         return self._impact_force * self._breaking_capacity + self.__endurance
-

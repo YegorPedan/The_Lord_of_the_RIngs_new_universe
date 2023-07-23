@@ -22,7 +22,12 @@ class Unit:
 
 
 class Elf(Unit):
+    instance_counter_total = 0
+    instance_counter_alive = 0
+
     def __init__(self, initial_health: int, speed: int, power: int, weapon, possession_of_weapon: int):
+        Elf.instance_counter_total += 1
+        Elf.instance_counter_alive += 1
         super().__init__(initial_health, speed, power)
         if self.is_weapon_possible(weapon, (Sword, Bow)):
             self.__weapon = weapon
@@ -30,6 +35,18 @@ class Elf(Unit):
         else:
             self.__possesion_of_weapon = 0
             self.__weapon = None
+
+    @classmethod
+    def decrease_alive_units(cls):
+        cls.instance_counter_total -= 1
+
+    @staticmethod
+    def stil_alive():
+        return f"{Elf.instance_counter_total}"
+
+    @staticmethod
+    def in_total():
+        return f"{Elf.instance_counter_alive}"
 
     def get_total_force(self) -> float:
         power = 0
@@ -42,9 +59,26 @@ class Elf(Unit):
 
 
 class Orc(Unit):
+    instance_counter_total = 0
+    instance_counter_alive = 0
+
     def __init__(self, initial_health: int, speed: int, power: int, number_of_rebirths: int):
+        Orc.instance_counter_total += 1
+        Orc.instance_counter_alive += 1
         super().__init__(initial_health, speed, power)
         self.__number_of_rebirths = number_of_rebirths
+
+    @classmethod
+    def decrease_alive_units(cls):
+        cls.instance_counter_alive -= 1
+
+    @staticmethod
+    def stil_alive():
+        return f"{Orc.instance_counter_alive}"
+
+    @staticmethod
+    def in_total():
+        return f"{Orc.instance_counter_total}"
 
     def get_total_force(self) -> float:
         return (self._initial_health + self._speed * self._power * self.__number_of_rebirths) / 100

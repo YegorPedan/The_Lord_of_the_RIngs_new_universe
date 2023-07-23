@@ -49,3 +49,6 @@ class UnitsTeam:
 
     def __str__(self) -> str:
         return f"current team health is {self.__team_health}"
+
+    def __del__(self):
+        print("For attacked team battle finished!")

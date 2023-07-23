@@ -26,33 +26,39 @@ if __name__ == "__main__":
     print("create a third team,", team3)
 
     # fourth team
-    smaug = Dragon(1, 17, 8)
+    smaug = Dragon(12, 17, 10)
     team4 = UnitsTeam()
     team4.add_unit(smaug)
     print("create a third team,", team4)
+    print()
 
     team1.attack(team2)
-    print("Team1 attack team2", f"now team2 health is {team2}")
+    print("Team1 attack team2, ", f"{team2}")
+    if team2.get_team_health() < 0:
+        del team2
 
     team2.attack(team3)
-    print("Team2 attack team3", f"now team3 health is {team3}")
+    print("Team2 attack team3,", f"{team3}")
+    if team3.get_team_health() < 0:
+        del team3
 
-    team3.attack(team4)
-    print("Team3 attack team4", f"now team3 health is {team4}")
+    # team3.attack(team4)
+    # print("Team3 attack team4,", f"{team4}")
+    #
+    # team4.attack(team1)
+    # print("Team4 attack team1,", f"{team1}")
+    #
+    # team2.attack(team3)
+    # print("Team2 attack team3", f"now team3 health is {team3}")
+    # print()
 
-    team4.attack(team1)
-    print("Team4 attack team1", f"now team1 health is {team1}")
-
-    team2.attack(team3)
-    print("Team2 attack team3", f"now team3 health is {team3}")
-
-    print()
-    if is_team_alive(team1.get_team_health()):
-        print("team 1 is alive")
-    if is_team_alive(team2.get_team_health()):
-        print("team 2 is alive")
-    if is_team_alive(team3.get_team_health()):
-        print("team 3 is alive")
-    if is_team_alive(team4.get_team_health()):
-        print("team 4 is alive")
-    print("team2 has won")
+    # print()
+    # if is_team_alive(team1.get_team_health()):
+    #     print("team 1 is alive")
+    # if is_team_alive(team2.get_team_health()):
+    #     print("team 2 is alive")
+    # if is_team_alive(team3.get_team_health()):
+    #     print("team 3 is alive")
+    # if is_team_alive(team4.get_team_health()):
+    #     print("team 4 is alive")
+    # print("team2 has won")

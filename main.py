@@ -6,7 +6,7 @@ from help_functions import is_team_alive
 if __name__ == "__main__":
     robin = Elf(1, 1, 1, Sword(1, 1, 1), 1)
     john = Men(5, 12, 44, Knife(5, 8, 7), 1, 2)
-    team1 = UnitsTeam()
+    team1 = UnitsTeam("team1")
     team1.add_unit(robin)
     team1.add_unit(john)
     print("create a first team,", team1)
@@ -14,51 +14,58 @@ if __name__ == "__main__":
     # second team
     matrin = Elf(7, 4, 1, Bow(3, 1, 9), 2)
     jame = Orc(1, 5, 7, 2)
-    team2 = UnitsTeam()
+    team2 = UnitsTeam("team2")
     team2.add_unit(matrin)
     team2.add_unit(jame)
     print("create a second team,", team2)
 
     # third team
     clark = SuperMen(1, 5, 7, Sword(1, 5, 7), 17, 1, 5)
-    team3 = UnitsTeam()
+    team3 = UnitsTeam("team3")
     team3.add_unit(clark)
     print("create a third team,", team3)
 
     # fourth team
     smaug = Dragon(12, 17, 10)
-    team4 = UnitsTeam()
+    team4 = UnitsTeam("team4")
     team4.add_unit(smaug)
-    print("create a third team,", team4)
+    print("create a fourth team,", team4)
     print()
 
-    team1.attack(team2)
-    print("Team1 attack team2, ", f"{team2}")
-    if team2.get_team_health() < 0:
-        del team2
+    # use garbage collector
+    all_teams = [team1, team2, team3, team4]
+    for team_index in range(len(all_teams)):
+        attacker = all_teams[team_index % len(all_teams)]
+        victim = all_teams[(team_index + 1) % len(all_teams)]
+        print(f"{attacker} attack {victim}")
+        attacker.attack(victim)
+        print(f"after attack {victim} health is {victim.get_team_health()}")
+        if not is_team_alive(victim):
+            print(f"{victim} was deleted from battlefield!")
+            all_teams.remove(victim)
 
-    team2.attack(team3)
-    print("Team2 attack team3,", f"{team3}")
-    if team3.get_team_health() < 0:
-        del team3
-
-    # team3.attack(team4)
-    # print("Team3 attack team4,", f"{team4}")
+    # use del function
+    # team1.attack(team2)
+    # if team2.get_team_health() == 0:
+    #     del team2
     #
-    # team4.attack(team1)
-    # print("Team4 attack team1,", f"{team1}")
+    # try:
+    #     team2.attack(team3)
+    #     if team3.get_team_health() == 0:
+    #         del team3
+    # except NameError:
+    #     print("team3 already removed")
     #
-    # team2.attack(team3)
-    # print("Team2 attack team3", f"now team3 health is {team3}")
-    # print()
-
-    # print()
-    # if is_team_alive(team1.get_team_health()):
-    #     print("team 1 is alive")
-    # if is_team_alive(team2.get_team_health()):
-    #     print("team 2 is alive")
-    # if is_team_alive(team3.get_team_health()):
-    #     print("team 3 is alive")
-    # if is_team_alive(team4.get_team_health()):
-    #     print("team 4 is alive")
-    # print("team2 has won")
+    # try:
+    #     team3.attack(team4)
+    #     if team4.get_team_health() == 0:
+    #         del team4
+    # except NameError:
+    #     print("team2 already removed")
+    #
+    # try:
+    #     team4.attack(team1)
+    #     if team1.get_team_health() == 0:
+    #         del team1
+    # except NameError:
+    #     print("team4 already removed")

@@ -5,7 +5,8 @@ from user_exceptions import AttackTypeError, TeamTypeError
 
 
 class UnitsTeam:
-    def __init__(self) -> None:
+    def __init__(self, team_name: str) -> None:
+        self.__team_name = team_name
         self.units = []
         self.__team_health = 0
 
@@ -48,7 +49,7 @@ class UnitsTeam:
         return self.__team_health
 
     def __str__(self) -> str:
-        return f"current team health is {self.__team_health}"
+        return self.__team_name
 
     def __del__(self):
-        print("For attacked team battle finished!")
+        print(f"\nFor {self.__team_name} battle finished!")
